@@ -1,0 +1,7 @@
+robweber:
+  name: Rob Weber
+  picture: /images/robweber.jpg
+  links:
+    - title: GitHub
+      url: https://github.com/robweber
+      icon: fab fa-github-square

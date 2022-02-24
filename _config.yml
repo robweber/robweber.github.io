@@ -28,9 +28,20 @@ twitter_username: ""
 github_username:  robweber
 
 # Build settings
-theme: minima
+remote_theme: "mmistakes/so-simple-theme@3.2.0"
 plugins:
   - jekyll-feed
+  - jekyll-paginate
+
+permalink: /:categories/:title/
+
+# read time estimation
+read_time: true
+words_per_minute: 200
+
+# pagination settings
+paginate: 10  # amount of posts to show per page
+paginate_path: /page:num/
 
 # Exclude from processing.
 # The following items will not be processed, by default.
