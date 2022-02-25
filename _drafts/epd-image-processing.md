@@ -6,8 +6,6 @@ categories: coding
 tags: epd python omni-epd
 ---
 
-## Background
-
 This is mostly a reminder for myself but perhaps could be useful for others in the same boat. In short, image processing is a pain. This is especially true when dealing with devices, like e-ink displays, that use limited color sets. Black and white conversions are fairly easy to deal with but as soon as you start adding multiple colors things can get tricky.
 
 Below are some of my notes on dealing with Tri-color Waveshare devices and how to process the images. For reference I'll be using code from my [omni-epd][omni-epd] project, which implements these image processing methods. The library used throughout is the excellent [Pillow image processing library][pillow].
@@ -48,7 +46,7 @@ image.save('/path/to/file_bw.png', "PNG")
 
 This code simply opens and image and uses the built in `convert()` method to turn it into a BW image. The argument `mode` can convert an image into a number of [different image types](https://pillow.readthedocs.io/en/stable/handbook/concepts.html#concept-modes); but `1` is just a b/w image. Full details on `convert()` are in the [Pillow docs](https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.convert).
 
-Where things get trickier is if you have an EPD that can handle more than one color. Some devices, like the Inky Impression, can simply take the raw `Image` object and do the conversion for you. For Tri-color Waveshare devices though you need to filter out the colors you don't want from the image first. This is done by adjusting the image palette.
+Where things get trickier is if you have an EPD that can handle more than one color. Some devices, like the [Inky Impression](https://github.com/pimoroni/inky), can simply take the raw `Image` object and do the conversion for you. For Tri-color Waveshare devices though you need to filter out the colors you don't want from the image first. This is done by adjusting the image palette.
 
 ```python
 from PIL import Image
@@ -83,11 +81,10 @@ image.save('/path/to/file_filtered.png', "PNG")
 
 ```
 
-This is a very simple example but a function can easily be written to take an array of RGB tuples `[(255,255,255), (0,0,0)]`, generate the correct palette filter image, and apply it to a base image. The result of the filter above can be seen in the image below.
+One important thing to note is the setting of all the other colors to black. This will ensure that you get the rest of the detail from this image, but rendered as black. Using the above a very simple example function can easily be written to take an array of RGB tuples `[(255,255,255), (0,0,0)]`, generate the correct palette filter image, and apply it to a base image. The result of the filter above can be seen in the image below.
 
-### Tricking a BW display
-
-A nifty side-effect of being able to adjust the palette to filter out colors is that we could use this to trick a simple black and white EPD. For example, you could filter on white and reds in the image causing the EPD to draw all the red colors as black when rendered. You could do this for any color combinations as long as you only leave two colors. I've written a gist that does that using `omni-epd` and the mock EPD driver you can test.
+| ![original image](/images/2022-02-25/test.jpg)  | ![Black and Red filtered image](/images/2022-02-25/test_filtered.png) |
+| Original image | Black and Red filtered |
 
 ## Sending Color Images to WaveShare
 
@@ -111,12 +108,22 @@ epd.display(epd.getbuffer(img_black), epd.getbuffer(img_color))
 
 ```
 
-Taking a look a what each of those `Image` objects looks like you'll see they are both b/w images; however the first one represents the black color from the three color image and second has the red coloring from the three color image. These are then sent as parameters to the EPD driver which draws them as black and red on the screen. The `first_color` and `second_color` tuples are just setting every other color to white except for the one we want to remain. 
+Taking a look a what each of those `Image` objects looks like you'll see they are both b/w images; however the first one represents the black color from the three color image and second has the red coloring from the three color image. These are then sent as parameters to the EPD driver which draws them as black and red on the screen. The `first_color` and `second_color` tuples are just setting every other color to white except for the one we want to remain.
+
+| ![Black filtered image](/images/2022-02-25/test_black.png) |  ![Red filtered image](/images/2022-02-25/test_red.png) |
+| Black Filtered | Red Filtered |
+
+If you're really astute you'll see that the b/w image is actually color inverted. It's drawing the black as white and the white as black. This is because the `display()` function will take the image buffer and invert it back. It's a weird quirk of how Waveshare does the display but important nonetheless.
+
+## Conclusion
+
+The guts behind this confuse me every time I have to look at it. I've never been great at this sort of programming but having this as a reference in the future will help me refresh my memory. 
 
 ## Links
 
-* omni-EPD
-* Pillow
+* [omni-epd][omni-epd]
+* [Pillow][pillow]
+* [Waveshare Driver Source](https://github.com/waveshare/e-Paper)
 
 [omni-epd]: https://github.com/robweber/omni-epd
 [pillow]: https://pillow.readthedocs.io/en/stable/index.html
