@@ -6,7 +6,7 @@ categories: automation smarthome random
 tags: atom chocolatey home-assistant kodi
 ---
 
-For as long as I can remember I've always been really paranoid about losing data. I had a RAID server cobbled together from an old Intel 3 PC when I was in college and it's only gotten worse from there. I'm also sort of lazy; at least about re-doing work I've already done before. While Git repositories work great for my coding projects there are a lot of other things that need redundancy as well. With that in mind I'll highlight a few things I do to try make sure I can recover systems when I need to.
+For as long as I can remember I've always been really paranoid about losing data. When Windows XP was brand-spanking new it was having two hard drives in my PC; in college I cobbled together a RAID system from an old Intel 3 tower and now it's pushing files to dedicated NAS hardware or in the cloud. I'm also sort of lazy; at least about re-doing work I've already done before. While Git repositories work great for my coding projects there are a lot of other things that need redundancy as well. With that in mind I'll highlight a few things I do to try make sure I can recover systems when I need to.
 
 __There are hundreds of different ways you could set this kind of thing up but this is what works for me.__ If you just want the list of software jump right to the [links](#links).
 
