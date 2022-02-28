@@ -8,7 +8,7 @@ tags: epd python omni-epd
 
 This is mostly a reminder for myself but perhaps could be useful for others in the same boat. In short, image processing is a pain. This is especially true when dealing with devices, like e-ink displays, that use limited color sets. Black and white conversions are fairly easy to deal with but as soon as you start adding multiple colors things can get tricky.
 
-Below are some of my notes on dealing with Tri-color Waveshare devices and how to process the images. For reference I'll be using code from my [omni-epd][omni-epd] project, which implements these image processing methods. The library used throughout is the excellent [Pillow image processing library][pillow].
+Below are some of my notes on dealing with Tri-color Waveshare devices and how to process the images. For reference I'll be using code from my [omni-epd][omni-epd] project, which implements these image processing methods. The library used throughout is the excellent [Pillow image processing library][pillow]. If you want to play with any of these methods I've written a [filter script][filter-gist] that can both filter an image based on a given palette, or save the colors separate as shown below. 
 
 <!--more-->
 
@@ -117,13 +117,15 @@ If you're really astute you'll see that the b/w image is actually color inverted
 
 ## Conclusion
 
-The guts behind this confuse me every time I have to look at it. I've never been great at this sort of programming but having this as a reference in the future will help me refresh my memory. 
+The guts behind this confuse me every time I have to look at it. I've never been great at this sort of programming but having this as a reference in the future will help me refresh my memory.
 
 ## Links
 
+* [filter_color.py][filter-gist] - script to split images based on palette using code in this post
 * [omni-epd][omni-epd]
 * [Pillow][pillow]
 * [Waveshare Driver Source](https://github.com/waveshare/e-Paper)
 
 [omni-epd]: https://github.com/robweber/omni-epd
 [pillow]: https://pillow.readthedocs.io/en/stable/index.html
+[filter-gist]: https://gist.github.com/robweber/08c79e0f0eb5f239f4b50209291702a3
