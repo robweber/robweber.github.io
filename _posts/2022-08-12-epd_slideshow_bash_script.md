@@ -16,7 +16,7 @@ Like a lot of people lately, I wanted to display some of the new images from the
 
 ## Setup
 
-This is a super simple Bash script, however there is some setup involved. To talk to the EPD I'm using the [omni-epd Python library][omni-epd], which I also happen to be the maintainer of. This is a simple Python library that abstracts the process of sending images to a variety of electronic paper displays. Critically for this quick project, it includes a test utility `omni-epd-test` that is installed as a command line testing tool when you install the library.
+This is a super simple Bash script, however there is some setup involved. To talk to the EPD I'm using the [omni-epd Python library][omni-epd], which I also happen to be the maintainer of. `omni-epd` is a Python library that abstracts the process of sending images to a variety of electronic paper displays. Critically for this quick project, it includes a test utility `omni-epd-test` that is installed as a command line testing tool when you install the library.
 
 Assuming the EPD is connected to a Raspberry Pi the library and test utility can be installed with:
 
@@ -73,7 +73,7 @@ omni-epd-test -e $EPD -i ${IMAGES[INDEX]}
 
 ### Breaking It Down
 
-The first part of the script simply defines some variables, including the EPD type. The directory path is passed in as a command line variable when the script is run. To get a list of all images in the path I'm using the following loop. It cycles through each file in the directory, filtering on PNG images. These are then added to the `IMAGES` array. Note that you have to take the existing array, add the new image, and then set the variable with each loop. If you don't do this you'll end up with just one image path at the end.
+The first part of the script simply defines some variables, including the EPD type. The directory path is passed in as a command line variable when the script is run. To get a list of all images in the path I'm using the following loop below. It cycles through each file in the directory, filtering on PNG images. These are then added to the `IMAGES` array. Note that you have to take the existing array, add the new image, and then set the variable with each loop. If you don't do this you'll end up with just one image path at the end.
 
 ```bash
 for image in $DIR_PATH/*.png
@@ -89,11 +89,11 @@ TOTAL=${#IMAGES[@]}
 INDEX=$(($RANDOM % $TOTAL))
 ```
 
-Now that the index to a random image in the array is found, the last line uses `omni-epd-test` to update the EPD.
+This code will generate a value between 0 and the max number of images. Now that a random image in the array is found, the last line uses `omni-epd-test` to update the EPD.
 
 ## Conclusion
 
-This probably took me 20 min total to put together the whole thing. I did have to do some "Googling" on how to do the random array selection but that was about it. Obviously this whole thing could be done with Python, or using a dedicated slideshow type of project. The Bash script was easy and can be setup on a timer with `cron`. When I'm sick of James Webb I can quickly turn it off and put the display back into service as a [very slow movie player](https://www.google.com/search?q=very+slow+movie+player).
+This probably took me 20 min total to put together the whole thing. I did have to do some "Googling" on how to do the array randomization but that was about it. Obviously this whole thing could be done with Python, or using a dedicated digital photo frame type of project. The Bash script was easy and can be setup on a timer with `cron`. When I'm sick of James Webb I can quickly turn it off and put the display back into service as a [very slow movie player](https://www.google.com/search?q=very+slow+movie+player).
 
 ## Links
 
