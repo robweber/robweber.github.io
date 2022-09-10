@@ -3,7 +3,7 @@ layout: post
 title:  "Fun With Light Sensors"
 author: robweber
 categories: automation smarthome
-tags: home-assistant esphome
+tags: home-assistant esphome yaml
 ---
 
 In our living room we have several very large windows that can let in a lot of light. We also have some lights with either LIFX bulbs or Z-Wave switches that we can control via Home Assistant. It seemed like a no-brainer to try and make a system to auto turn the lights on or off depending on the amount of light in the room. On overcast days, or during the winter when it isn't light until 7:30am, we could have the lights turn on when we wanted them to and off again when the sun provided enough light in the room. With this very simple idea in mind I jumped down the rabbit hole of complications as our family started to run in to all the edge cases.

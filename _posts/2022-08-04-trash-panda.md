@@ -3,7 +3,7 @@ layout: post
 title: "Trash Panda - A Simple Monitoring Project"
 author: robweber
 categories: coding
-tags: python
+tags: python yaml
 ---
 
 In my home lab we've come to rely on a number of services such that downtime on any one of them could cause a brief panic. Things like our MythTV server for watching over-the-air TV, PiHole server for DNS, or our Home Assistant automation system. Just like in a business production system there are a myriad of things that could go wrong with even simple home VMs. Stuff like filling up HD space, services not running that should be, or maybe an OS update hosed something. I've lost count of the number of times I decided to "apply patches quick" only to find out some library was now missing that used to be there and now service XYZ just won't start anymore. This is annoying for me but basically kills any good will I have with my family just trying to just browse the internet on their tablets.
@@ -200,7 +200,7 @@ This was a really fun project to build, even if the complexity of it did get a w
 
 I've been running this system on my home network for a few months now. It has helped me find a few issues prior to them becoming major problems so it's doing it's job. Looking back it _may_ have just been easier to utilize an out of the box solution but sometimes the journey is more fun than the destination.
 
-Quick note on the name __Trash Panda__. This was basically my way of re-iterating that this is not a polished, high-end project. Much like a [trash panda](https://en.wiktionary.org/wiki/trash_panda) (aka raccoon) this project is a bit messy, probably unwanted, and not as good as the real thing. 
+Quick note on the name __Trash Panda__. This was basically my way of re-iterating that this is not a polished, high-end project. Much like a [trash panda](https://en.wiktionary.org/wiki/trash_panda) (aka raccoon) this project is a bit messy, probably unwanted, and not as good as the real thing.
 
 
 ## Links

@@ -3,7 +3,7 @@ layout: post
 title:  "Custom Home Assistant Energy Sensor"
 author: robweber
 categories: smarthome
-tags: home-assistant python
+tags: home-assistant python yaml
 ---
 
 The [Energy Management section][ha-energy-dashboard] of Home Assistant is very powerful. It allows you to visualize both consumption and generation (if available) of electricity in your home. In addition to whole home energy monitoring you can also setup [individual devices](https://www.home-assistant.io/docs/energy/individual-devices/) within the system that are capable of capturing usage information. In my home I have a small UPS that provides backup power for all my home lab equipment. This includes my home camera system, NAS, wifi access points; basically all the main network components of my home. I wanted to see if it was possible to get usage information from this device into Home Assistant and see how much electricity it's using compared to the rest of my home.
