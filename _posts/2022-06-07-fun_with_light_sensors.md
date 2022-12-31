@@ -2,7 +2,7 @@
 layout: post
 title:  "Fun With Light Sensors"
 author: robweber
-categories: automation smarthome
+categories: automation hardware smarthome
 tags: home-assistant esphome yaml
 ---
 
