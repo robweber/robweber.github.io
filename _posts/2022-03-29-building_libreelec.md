@@ -28,7 +28,7 @@ E: Unable to locate package java
 
 Some digging on their forums told me to just ignore these and the build system would find the deps later. I moved on to the next instruction but decided to fix that issue later. I cloned my fork of the project to the server but before building switched branches. The version of RetroPlayer I wanted to build is based on Kodi 19.4. The LibreELEC main branch is past that already so I checked out the 10.0 branch, which is based on Kodi 19.
 
-```
+```bash
 git fetch
 git branch -v -a
 git checkout -b libreelec-10.0 remotes/origin/libreelec-10.0
@@ -107,7 +107,7 @@ PROJECT=Generic ARCH=x86_64 BUILDER_NAME=robweber BUILDER_VERSION=20220302 make 
 
 To wrap everything together I created a [build script](https://github.com/robweber/LibreELEC.tv/blob/retroplayer_custom/create_build.sh) that I could execute after cloning the repo and kick off the build process without having to manually do a bunch of the steps above. As a bonus I can set the package name here that will set the `package.mk` variable to update the Kodi package with whatever the most current RetroPlayer build is.
 
-```
+```bash
 #!/bin/bash
 # Update the RetroPlayer build name and build the LibreELEC image
 # Rob Weber

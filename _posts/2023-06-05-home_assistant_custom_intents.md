@@ -20,7 +20,7 @@ While a number of built-in intent phrases have been added, I've been experimenti
 
 Just for some background, Home Assistant has created a pipeline feature that takes human written sentences and interprets them into a Home Assistant command (intent). The core of this is a custom tool called [Hassil][hassil]. In a nutshell Hassil has two components. The first is a YAML based system for describing phrases that could be used to trigger an action. There could be several phrases for the same action, and Hassil allows you to define as many variations as possible. Within a sentence there is also syntax for specifying variables (slots in Hassil parlance) where you expect a user provided information. As an example:
 
-```
+```yaml
 sentences:
   - "turn on the {device} in the {area}"
   - "turn off the {device} in the {area}"
@@ -41,7 +41,7 @@ The folks at Home Assistant have of course accounted for this and provided tools
 The documentation for all of this is pretty good. Basically I had to create two things; a custom sentence template for Hassil, and an [intent script][intent-scripts] for Home Assistant to execute. For the sentence template I first created a file within a specific folder of my HA config `config/custom_sentences/en/weather.yaml`. __EN__ is the language code, you can create sentence templates to match any language.
 
 {% raw %}
-```
+```yaml
 language: "en"
 intents:
   OutsideTemperature:
@@ -55,7 +55,7 @@ intents:
 For this example there really weren't any variables (slots) to worry about and the sentences were pretty basic. With this done I next created my custom intent script. These are added to your `configuration.yaml` file. Notice that the `OutsideTemperature` intent name is what ties these together. Hassil will tell Home Assistant to run this action when the sentences match the definitions. You can also have the intent trigger HA service calls but that wasn't necessary for this example. You'll notice here that I'm pulling my temperature from a personal weather station but the conditions come from a weather service. The power of the custom intent is I can mix and match the results however I want.
 
 {% raw %}
-```
+```yaml
 intent_script:
   OutsideTemperature:
     speech:
@@ -73,7 +73,7 @@ This all worked so great I wanted more custom phrases. For these examples I won'
 
 Something else that's useful to know is who is at home. Again, seems simple enough but there is currently no built-in sentence template for this type of question. I ended up with:
 
-```
+```yaml
 language: "en"
 intents:
   IsHome:
@@ -88,7 +88,7 @@ intents:
 Picking this apart the `<name>` slot is where the name of the person will go. I'm utilizing one of the two built in Home Assistant slot lists, `<name>`, the other is `<area>`. These are available in any sentence template to match an entity name or area name and pass it along to the intent. If you want others you have to define your own lists. The other thing I added is a context that filters only on entities within the person domain. This means that _"is living room light in the house"_ won't match since that entity is not a person. A full list of domains can be found by running the following template in your Home Assistant's Developer Tools area. I like this better than linking to an online list since this will pull an up to date list.
 
 {% raw %}
-```
+```jinja
 
 {{ states | groupby('domain') | map(attribute='0') | list | join('\n') }}
 
@@ -98,7 +98,7 @@ Picking this apart the `<name>` slot is where the name of the person will go. I'
 When testing this with an intent script I noticed a problem right away. The `<name>` slot is populated by the entity name. Imagine the input is something like _"is Rob at home_". When calling the intent you end up with `Rob` in the name slot. While this is correct, I can't use the entity's friendly name to lookup any info about the entity. For that I'd need the entity ID, something like `person.rob`. For built in Home Assistant intents some kind of HA magic must happen to turn the name value into an entity ID, but this wasn't happening for my custom intent scripts. I turned to the Home Assistant Forums to see if anyone else had the same issue. Fortunately I was able to [get some help](https://community.home-assistant.io/t/custom-intents-using-name/571831/2) in the form of an HA template designed to turn a friendly name back into an entity id. This isn't the most ideal solution, since you'll have to add this to every intent script you make, but it is better than creating custom slot list for every possible value as part of the sentence. If I add a person to my Home Assistant install I don't have to circle back and update my sentence templates. Using this work around my intent script ended up looking like this:
 
 {% raw %}
-```
+```yaml
 IsHome:
   description: "determines if a specific person is home or away"
   speech:
@@ -125,7 +125,7 @@ IsHome:
 
 Comparing to mapping the entity above this a lot simpler but still took a bit of thinking. I have a number of scripts that would be helpful to run based on different phrases. Think stuff like _"it's dinner time"_ or _"I'm heading out the door"_. I wanted to make the intent script generic so it could be easily re-used.
 
-```
+```yaml
 TriggerScript:
   description: "triggers a script"
   action:
@@ -139,7 +139,7 @@ TriggerScript:
 
 This is a little different than the other examples in that there is no `speech` information given but there is an `action`. The action in this case is just a call to the script we're going to pass in as a slot from our template sentence. For the response I utilized a custom [response key](https://developers.home-assistant.io/docs/voice/intent-recognition/template-sentence-syntax#responses) for the different template sentences.
 
-```
+```yaml
 language: "en"
 # define sentence triggers for the script intent
 intents:

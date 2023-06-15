@@ -20,13 +20,13 @@ This is a super simple Bash script, however there is some setup involved. To tal
 
 Assuming the EPD is connected to a Raspberry Pi the library and test utility can be installed with:
 
-```
+```bash
 sudo pip3 install git+https://github.com/robweber/omni-epd.git#egg=omni-epd
 ```
 
 Once installed you can run the test utility manually using the `omni-epd-test` command. For a list of supported devices, see the [omni-epd project page](https://github.com/robweber/omni-epd#displays-implemented).
 
-```
+```bash
 usage: omni-epd-test [-h] -e EPD [-i IMAGE]
 
 EPD Test Utility

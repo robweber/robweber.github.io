@@ -53,7 +53,7 @@ In this case I determined I'd need a web service (using Flask) and a class to ho
 
 The first thing I wanted to do was get some type of minimal system up and running to play with. I found a library called [pythonping][python-ping] that could send ICMP requests via Python. A few lines of code later and I had a system that could ping a series of IP addresses, read from a config file, and display the up/down status on a web dashboard. Success!
 
-```
+```python
 from pythonping import ping
 
 class PingCheck:
@@ -74,7 +74,7 @@ class PingCheck:
 
 I also wrote a function using the `subprocess` package to load generic command-line scripts and capture the exit results. This is pretty basic Python code but allowed me to leverage already written check scripts for various services (or define my own later). This opened the door to using the [Nagios plugins package][nagios-check-scripts]. An example of this in action is:
 
-```
+```python
 import subprocess
 import os.path
 
@@ -105,7 +105,7 @@ This all worked great (or so I thought) and I continued on to other things.
 
 As I was building the layout of the configuration file I realized I could use the web interface to display other information about each system. This way the dashboard could serve as both a monitoring system and jump point into management pages for each service. For a better visual I also tied into [Material Design Icons][material-design-icons] so hosts could associate an icon with their purpose - like using the Home Assistant icon for my Home Assistant server. I built these into the system as well so my config file started to look like the following:
 
-```
+```json
 [
   {
     "type": "switch",
@@ -139,7 +139,7 @@ I began the hard process of separating out services from hosts.....
 The final program design is probably less simple than I intended but way less complex than other monitoring systems. To maintain flexibility I decided to separate out the idea of service definitions from individual hosts. This allowed a single host definition to add whatever services it needed. I did include an element of inheritance to cover commonly used service types. First a service is defined. Note that this is little more than a path to the actual check command along with any arguments needed to run the check.
 
 {% raw %}
-```
+```yaml
 services:
   switch_uptime:
     command: "python3 {{ path(SCRIPTS_PATH, 'check_snmp.py') }}"
@@ -154,7 +154,7 @@ services:
 {% endraw %}
 Jinja templates are evaluated at runtime. The `default()` function allows you to specify a default argument or supply one from a host definition later. Once the service is defined you need to define a host type. These can be very basic or include default service checks.
 
-```
+```yaml
 types:
   generic_server:
     name: Server
@@ -175,7 +175,7 @@ types:
 
 Finally individual hosts can be defined. These will inherit any service checks from the type definition, or they can add their own.
 
-```
+```yaml
 hosts:
   - type: generic_server
     name: "Server1"

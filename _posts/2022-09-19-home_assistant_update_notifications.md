@@ -99,7 +99,7 @@ I didn't need this level of granularity but using the `trigger.from_state` and `
 
 Using the very useful [Auto Entities][auto-entities] card in Lovelace you can also get a list of updates in your UI. Installing the card is out of scope for this but assuming you have it working you can create a card like the one below. This uses a conditional display to only show the card when there is an update for at least one entity. From here the Auto Entities card is loaded to do the state filtering and display the updates in a simple entity list. You can make this look a lot more custom to fit your theme as well with some tweaking.
 
-```
+```yaml
 type: conditional
 conditions:
   - entity: binary_sensor.update_available

@@ -34,7 +34,7 @@ There are a lot of Python libraries available for facial detection and recogniti
 
 Deepface is a unique library in that it combines many different facial recognition and detection models into one library. This gives the option of swapping out models quickly if you want to fine-tune results. It also allows you to point to a set of reference images that are used to build the detection model. This is key since you may want to swap out who exactly you're looking for in a set of photos. Some boilerplate code almost directly from the Deepface README shows how quickly this can be done.
 
-```
+```python
 model = "Facenet512"  # the model to use, there are 8 choices
 
 """
@@ -61,7 +61,7 @@ Running the Deepface process on a lot of images can be very time consuming. This
 
 Python has support for both multi-threading and multi-processing. I won't pretend to be an expert on these but they both deal with dividing up program execution in different ways. [Towards Data Science][multiprocessing] has a good write-up going through the concrete differences. For this particular problem __multiprocessing__ is a good fit as image processing is a CPU intensive task. Python has a dedicated [multiprocessing](https://docs.python.org/3/library/multiprocessing.html) module but I chose to use the [joblib][joblib] Python library. It is a nice wrapper around the native functions and got me to an end result faster with only one more added dependency. A basic example using joblib would be:
 
-```
+```python
 from joblib import Parallel, delayed
 
 # meaningless function to do some work

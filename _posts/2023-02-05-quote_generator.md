@@ -48,7 +48,7 @@ This isn't the best schema I've ever come up with but it looked like it would do
 
 With the database done I thought about what framework I'd want to use. Normally I'd jump in to some kind of [MVC framework](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) but I wanted to try something I hadn't done before. I decided on the [Slim Framework][slim]. This is a simple PHP framework that lets you define routes (like `/api/random`) which get a Request and Response object to code your logic. It also integrates with a [template engine][twig] that would make generating HTML content pretty easy. A little digging on their website showed it would integrate with a database so I jumped in. On the PHP side a request comes in based on a route.
 
-```
+```php
 // return HTML page
 $app->get('/', function (Request $request, Response $response, $args) {
     $view = Twig::fromRequest($request);
@@ -71,7 +71,7 @@ $app->get('/api/random', function (Request $request, Response $response, $args) 
 On the HTML side you create a regular HTML page but it can include templated variables where you want things to load dynamically from your PHP backend code. This was familar to me from using [Jinja](https://palletsprojects.com/p/jinja/) as part of my [Trash Panda](/coding/trash-panda/) project.
 
 {% raw %}
-```
+```html
 <html>
   <head>
     <title>{{ page_title }}</title>
@@ -95,7 +95,7 @@ Creating a default page and loading some quotes proved to be pretty easy ([thank
 
 While it all worked I quickly saw a few issues. The first of which was simple data hygiene. How to make sure that the sources for quotes were entered uniformly and how to avoid duplicate quotes? To solve the source problem I added a backend method `/search/title/{type}` that would return all source titles for the given type (movie or tv). This works by utilizing an SQL query using the [LIKE syntax](https://mariadb.com/kb/en/like/).
 
-```
+```sql
 
 select source.title from source inner join type on source.type_id = type.id where type.type = 'movie' and source.title LIKE 'Aveng%';
 
@@ -105,7 +105,7 @@ It allows for queries like `/search/title/movie?q=Aveng` to search for any exist
 
 To solve the other issue I needed a way to determine if a quote was too similar to an existing quote before adding it to the database. PHP provides a function called [similar_text](https://www.php.net/manual/en/function.similar-text.php) to compare two text strings. Within the Add Quote logic I added a check to pull in all quotes for the given source and compare them against the proposed new quote.
 
-```
+```php
 // check quote against existing, probably duplicate if over percent threshold
 function duplicate_check($quote, $existing_quotes, $threshold_percent=75){
   $result = ['is_dup'=>False];
@@ -149,7 +149,7 @@ composer.json
 
 After this simply add an autoload directive to your `composer.json` file and run `composer update`. This will create the stubs needed to autoload class files from your custom directory, the same as it does from the `vendor` directory. In my example below they'll all start within the `App` namespace. Imports would look like `use App\DeveloperDino\ProfanityFilter\ProfanityCheck`
 
-```
+```php
 "autoload": {
         "psr-4": {
             "App\\": "custom/"
@@ -160,7 +160,7 @@ After this simply add an autoload directive to your `composer.json` file and run
 
 Once everything was linked up doing the profanity check was fairly easy. On the web interface side I added badges that said __explicit__ as well as made this a search filter using `?explicit=false` as part of the query string.
 
-```
+```php
 
 // hasProfanity() returns boolean value
 $explicit_checker = new ProfanityCheck();
@@ -178,7 +178,7 @@ To do this I'd have to keep track of who added each quote as well. By now I was 
 
 Once the username piece was working I coded a quick leaderboard page. This gave some simple stats to show who was adding the most quotes and how many different sources they were adding to. The SQL for this is:
 
-```
+```sql
 # select total quotes and unique sources, grouped by user
 select count(id) as total_quotes, count(distinct source_id) as total_sources, user from quote group by user order by total_quotes;
 

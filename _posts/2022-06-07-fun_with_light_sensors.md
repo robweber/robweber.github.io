@@ -32,7 +32,7 @@ Wiring up the sensor was pretty easy. It has 4 pins, ground, power, SDA and SCL.
 
 Once the wiring is done the device needed to be configured within ESPHome. This is done in YAML. Besides all the normal stuff needed to get it talking to the ESPHome system (and Home Assistant) I needed to define the I2C bus and the sensor itself. The code below is from my setup. If duplicating be sure to check the pin numbers on your device.
 
-```
+```yaml
 # specify pins for the light sensor
 # source: https://esphome.io/components/i2c.html#i2c
 i2c:
@@ -108,7 +108,7 @@ The automation code I ended up with is below. It is split between a Script and a
 
 The Script is where the logic of if to turn the lights on or off is kept. It's a simple condition that checks the current light level, based on the Statistic sensor, and if the lights are already on or off. This in turn triggers if the state of the lights should be changed. The boolean helper is turned on or off here as well as appropriate.
 
-```
+```yaml
 sequence:
   - choose:
       - conditions:
@@ -163,7 +163,7 @@ alias: Automate Living Room Lights
 
 The Automation is where the triggers are evaluated. The main trigger condition is when the lux value goes above or below 5lx, based on the Statistic sensor. You'll notice there is one additional trigger I haven't mentioned, when the shade percentage goes above 25%. This is a catch for when the shades are moved from open to close, it will force the light level to evaluate at this moment. The conditions check for shades being open and the sunset condition explained above.
 
-```
+```yaml
 alias: Automate Living Room Lights
 description: >-
   turn on/off lights in the living room if the shades are open and the light
