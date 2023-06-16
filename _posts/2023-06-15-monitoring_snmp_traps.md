@@ -30,7 +30,7 @@ It has some built in ways of getting alerts on the sensor status. The best for i
 
 ### The Monitoring System
 
-Where I work we utilize the [Icinga Monitoring system][icinga] for network monitoring. Icinga is similiar to [Nagios](https://www.nagios.org/); and in fact check scripts are interoptable between them. Within Icinga you define a device (_host_) and a device can contain many _services_.
+Where I work we utilize the [Icinga Monitoring system][icinga] for network monitoring. Icinga is similiar to [Nagios](https://www.nagios.org/); and in fact check scripts are interoperable between them. Within Icinga you define a device (_host_) and a device can contain many _services_.
 
 For these types of monitoring systems there are active and passive checks. An active check would be the Icinga daemon polling a device for it's status. A passive check is the device, or some external program, sending the service information to Icinga. Both have their use cases, although active checks are the most common.
 
