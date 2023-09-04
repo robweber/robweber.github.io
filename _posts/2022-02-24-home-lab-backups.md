@@ -101,16 +101,37 @@ To control my smart home setup I utilize [Home Assistant](https://www.home-assis
 
 I utilize the [Kodi](https://www.kodi.tv) media center for watching Live TV and local video content. To keep the configurations on these devices backed up I use my own Kodi addon, [Backup][kodi-backup]. This addon can be found in the Kodi Addon Repository and installed directly from within Kodi.
 
+## Update 7/7/2023
+
+Since this post was written things have changed (big suprise) that have altered my setup a bit.
+
+### Atom Sunset
+
+I know everyone is all on board with VS Code, I'm just not there for whatever reason. When Atom was sunset I was honestly pretty bummed. I had my setup exactly how I wanted it and didn't want to learn a new IDE. Enter [Pulsar][pulsar]. Pulsar is an attempt to keep the Atom project alive through the Open Source community. Not sure if it will stand the test of time but it's active for now and releasing versions fairly regularly.
+
+It's almost a 1:1 drop in replacement for Atom. You can even use most of the same plugins since it's scraped and re-built the original Atom plugin infrastructure. I've found a few that didn't work but the core of what I needed was available. Until somone can convince me to get on the VS Code bandwagon this will satisfy my childish impulse not to change.
+
+### Terminal Software
+
+I've also started using [Tabby][tabby] as my terminal program of choice. I used to use Putty, or one of it's offshoots, but I've come to really like how Tabby can keep all my various terminals (including Powershell when on Windows) into one program. Plus it has some great out of the box features and plugins.
+
+Like a lot of programs Tabby has [a plugin](https://www.npmjs.com/package/terminus-sync-config) that will offload your config to a Gist. Just like with Atom/Pulsar this is super convienent for moving between different working environments.
+
+### Ansible
+
+Probably the biggest change is finally embracing [Ansible][ansible] in my home lab. Professionally I've used other tools, usually Puppet, but never jumped in to any kind of config management on my home systems. I'm still in the early steps of learning but am slowly migrating old config files and scripts into the Ansible environment. This should be more future-proof than scripts and I can still keep everything in my Git repo.
 
 ## Links
 
-* [Atom][atom] - a full featured, hackable, text editor
-  * [Atom - sync-settings][atom-sync] - Atom package to sync settings to GitHub Gist
+* [Pulsar][pulsar] ~~[Atom][atom]~~ - a full featured, hackable, text editor
+  * [Pulsar - sync-settings][pulsar-sync] ~~[Atom - sync-settings][atom-sync]~~ - Pulsar ~~Atom~~ package to sync settings to GitHub Gist
 * [Chocolatey][chocolatey] - Windows package installer
 * [Dropbox][dropbox] - cloud storage
 * [ghettoVCB][ghetto-vcb] - VMware hypervisor backup
 * [Kodi- Backup][kodi-backup] - Backup addon for the Kodi media center
 * [Veeam Agent][veeam-agent] - free full metal backup solution for desktops and servers
+* [Tabby][tabby] - cross platform terminal app for local, serial, SSH and Telnet
+* [Ansible][ansible] - tool that enables infrastructure automation
 
 [atom]: https://atom.io/
 [atom-sync]: https://atom.io/packages/sync-settings
@@ -119,3 +140,7 @@ I utilize the [Kodi](https://www.kodi.tv) media center for watching Live TV and 
 [ghetto-vcb]: https://github.com/lamw/ghettoVCB
 [kodi-backup]: https://github.com/robweber/xbmcbackup
 [veeam-agent]: https://www.veeam.com/windows-endpoint-server-backup-free.html
+[pulsar]: https://pulsar-edit.dev/
+[tabby]: https://tabby.sh/
+[ansible]: https://www.ansible.com/
+[pulsar-sync]: https://web.pulsar-edit.dev/packages/sync-settings

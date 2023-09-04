@@ -33,6 +33,7 @@ plugins:
   - jekyll-feed
   - jekyll-paginate
 
+# list of syntax highlight options: https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers
 kramdown:
   syntax_highlighter: rouge
   auto_ids:       true
