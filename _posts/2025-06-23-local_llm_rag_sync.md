@@ -8,7 +8,7 @@ tags: python ollama
 
 Anyone with a home lab is playing around with local large language models via [Ollama][ollama], and I'm no exception. I have a pretty modest setup using Ollama and [Open WebUI][open-webui] to run some smaller parameter models. Once the novelty of asking it stupid questions, within the privacy of the fully local setup, ran out I started thinking "how can I get this to do something useful?". Naturally [Retrieval Augmented Generation (RAG)](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) came to mind. Have the system put my own data to work for me so to speak.
 
-Luckily, Open WebUI has pretty built in support for this through their [Knowledge](https://docs.openwebui.com/features/workspace/knowledge) system. The only speed bump I ran in to was how to keep the local knowledge base up to date. In this post I'll detail a Python script I wrote to leverage the Open WebUI API to sync files within the RAG Knowledge base system.
+Luckily, Open WebUI has good built in support for this through their [Knowledge](https://docs.openwebui.com/features/workspace/knowledge) system. The only speed bump I ran in to was how to keep the local knowledge base up to date. In this post I'll detail a Python script I wrote to leverage the Open WebUI API to sync files within the RAG Knowledge base system.
 
 <!--more-->
 
@@ -20,7 +20,7 @@ For the sake of brevity I'm going to skip most of the details behind Ollama, Web
 
 I actually got this all working pretty quickly, but the very next question was "what happens when the data changes?". Loading documents into the Knowledge system is a pretty manual process. There are built-in tools to sync with Google Drive or OneDrive but in my opinion those are pretty limited. I figured there had to be a better way to pipeline the data.
 
-Doing some digging through the documentation I found that Open WebUI has a very robust [REST API](https://docs.openwebui.com/getting-started/api-endpoints). It includes the ability to upload files and add/remove files from the Knowledge base.
+Doing some digging through the documentation I found that Open WebUI has a robust [REST API](https://docs.openwebui.com/getting-started/api-endpoints). It includes the ability to upload files and add/remove files from the Knowledge base.
 
 ### Requirements
 

@@ -92,6 +92,7 @@ Tilt sends a JSON payload so for the rest of the Automation I figured the easies
 
 Full Automation:
 
+{% raw %}
 ```
 alias: Brewing - Tilt
 description: update tilt sensor information
@@ -111,6 +112,7 @@ action:
       payload: "{{ trigger.json | to_json }}"
 mode: single
 ```
+{% endraw %}
 
 ### Setup Sensors
 
