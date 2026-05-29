@@ -6,6 +6,8 @@ categories: automation random
 tags: home-assistant python scripts
 ---
 
+__NOTE: as of 2024 GoDaddy restricted access to their DNS API to accounts with 50 domains or more. As a result the DNS script for this is no longer functional__
+
 In my home lab I have a handful of services that need to be accessed from outside the house via the internet. For me [Home Assistant][home-assistant] is my number one need but there are others. Of course the problem with this is that a residential ISP doesn't give you a static IP so your outside address changes every so often. What usually ends up happening in these situations is that to get a static IP you need to upgrade your internet plan or pay some additional monthly fee - which I of course don't want to do. [Dynamic DNS][dynamic-dns] is supposed to solve this problem. The idea is you setup a static host record and then update the IP it points to when your DHCP address with your ISP changes.
 
 Dynamic DNS is pretty easy to nail down and there are probably hundreds of services that do it. You can even get routers with the ability to do it built in. My specific problem with these services is that you often get a really weird URL like __hostname.dynamicservice.com__. Nothing wrong with that if you're getting this service for free but the second you want to add something additional, like a custom domain or SSL cert, you have to start paying the dynamic DNS service. I don't want to pay them either! I want my cake and I want it for free.
